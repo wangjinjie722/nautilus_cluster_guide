@@ -1,29 +1,45 @@
 apiVersion: batch/v1
-kind: Job
+kind: Job # Deployment will automatically restart when killed. Use Pod if not needed
 metadata:
-  name: myapp
+  labels:
+    k8s-app: research
+  generateName: xyang-siamese-job
+  namespace: ecepxie
 spec:
   template:
+    metadata:
+      labels:
+        k8s-app: research
     spec:
-      containers:
-      - name: demo
-        image: gitlab-registry.nautilus.optiputer.net/yol070/research-containers/research-login-v2
-        command: ["/bin/bash"]
-        args: ["-c", "sleep infinity"]
-        volumeMounts:
-        - name: zichao-volume
-          mountPath: /zichoa-volume
-        resources:
-          limits:
-            memory: 8Gi
-            cpu: "2"
-            nvidia.com/gpu: "1"
-          requests:
-            memory: 4Gi
-            cpu: "1"
       restartPolicy: Never
+      containers:
+      - name: research
+        image: gitlab-registry.nautilus.optiputer.net/vamsirk/research-containers
+        imagePullPolicy: Always
+        workingDir: /xyang-volume/text-to-image/text-to-image
+        command: ["bash","train.sh"]
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "2"
+            nvidia.com/gpu: 2
+          limits:
+            memory: "8Gi"
+            cpu: "2"
+            nvidia.com/gpu: 2
+        volumeMounts:
+        - mountPath: /ceph
+          name: xyang-volume
       volumes:
-        - name: zichao-volume
+        - name: xyang-volume
           persistentVolumeClaim:
-            claimName: zichao-volume
-  backoffLimit: 5
+            claimName: xyang-volume
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: gpu-type
+                operator: In # Use NotIn for other types
+                values:
+                - 1080Ti
