@@ -10,7 +10,7 @@ There are generally two types of pods under our situation.
 So you can choose one of them based on your type of task.
 
 ## How to get the permanent storage:
-This is sample to apply for storage. However there are several other situation. Official documents https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+This is sample to apply for storage. However there are several other situation. Please do not apply more than 1T storage. Official documents https://kubernetes.io/docs/concepts/storage/persistent-volumes/
 ```bash
 kubectl apply -f storage.yaml
 ```
@@ -41,7 +41,24 @@ kubectl delete job ${JOB_NAME}
 ```
 kubectl get pods/job
 ```
-2. See why the pods creation is pending
+2. See why the pods creation is pending. This command will tell you what is wrong whe pendding happens(resouece shortage, etc.)
 ```
 kubectl describe pods ${POD_NAME}
 ```
+3. Logs the print for the pods you create. If you have print some information (loss, epoch, etc.) in your python file, this command can show them on your screen
+```
+kubectl logs ${POD_NAME}
+```
+## How to use shell on the cluster
+Yes, you can also use shell on the cluster. Use the following command will help you log on the pods and you can use shell there 
+```
+kubectl exec -it ${POD_NAME} bash
+```
+
+## How to transfer file to the cluster
+For me there are two ways to transfer file to the cluster
+1. kubectl copy
+```
+kubectl cp ${LOCAL-DIR} ${NAMESPACE-NAME}/${POD_NAME}:${REMOTE-DIR}
+```
+1. Git(suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency of collaboration is needed.
