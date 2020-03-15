@@ -26,7 +26,7 @@ You can also manually clean you pods when it is done.
 kubectl delete pods ${POD_NAME}
 ```
 ## How to depoloy a job
-Use the "Job". For Job **Please never use args: ["sleep", "infinity"]**. This command will occupy the resources forever and can not be cleaned if your are done. I suggest you to run your code with a .sh file that specify your command in a general file. A sample is [shell](train.sh)
+Use the "Job". For Job **Please never use args: ["sleep", "infinity"]**. This command will occupy the resources forever and can not be cleaned if your are done. I suggest you to run your code with a .sh file that set up the environment and specify your command in a general file. A sample is [shell](train.sh)
 
 ```
 kubectl apply -f job.yaml
