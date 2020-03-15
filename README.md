@@ -49,6 +49,15 @@ kubectl describe pods ${POD_NAME}
 ```
 kubectl logs ${POD_NAME}
 ```
+4. Tensorboard. We can observe the training process with the help of tensorcoard. You should first activate the tensorboard in the pods
+```
+tensorboard --logdir=${LOG-FILE}
+```
+The kubectl can link you local port to the specified port of the pods
+```
+kubectl port-forward ${POD_NAME} ${REMOTE-PORTNUM}:${LOCAL-PORTNUM}
+```
+Then the website for tensorboard can be seen in **http://localhost:${LOCAL-PORTNUM}**
 ## How to use shell on the cluster
 Yes, you can also use shell on the cluster. Use the following command will help you log on the pods and you can use shell there 
 ```
@@ -61,4 +70,4 @@ For me there are two ways to transfer file to the cluster
 ```
 kubectl cp ${LOCAL-DIR} ${NAMESPACE-NAME}/${POD_NAME}:${REMOTE-DIR}
 ```
-1. Git(suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency of collaboration is needed.
+1. Git(suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency if collaboration is needed.
