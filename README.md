@@ -1,16 +1,37 @@
-# nautilus_cluster_guide
-You should get the storage first if you want to donwload your dataset.
+# nautilus cluster guide
+In general, we have two steps to start to use our cluster
+1. Apply for storage to store our files and data
+2. create a pods and run your programe. A Kubernetes pod is a group of containers that are deployed together on the same host. If you frequently deploy single containers, you can generally replace the word "pod" with "container" and accurately understand the concept.
+
+There are generally two types of pods under our situation. 
+1. An independent pods is limited to exit for 6 hours
+2. Pods controlled by jobs. A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up the Pods it created.
+
+SO you can choose one of them based on your type of task.
+
 ##How to get the permanent storage:
 ```bash
 kubectl apply -f storage.yaml
 ```
 ## How to get an interactive shell:
-use the "Pod". But a pod can only exist for 6 hours. For long time use, you should create a job.
+Use the "Pod". For pods we can use **args: ["sleep", "infinity"]**, since it will be automaticly deleted after 6 hours.
+Pods can maximally exist for 6 hours. For long time use, you should create a job.
 Create "Pod"
 ```
 kubectl create -n ecepxie -f login.yaml
 ```
+You can also manually clean you pods when it is done.
+```
+kubectl delete pods <pod-name>
+```
 ## How to depoloy a job
+Use the "Job". For Job **Please never use args: ["sleep", "infinity"]**. This command will occupy the resources forever and can not be cleaned if your are done.
+
 ```
 kubectl apply -f job.yaml
 ```
+You can also manually clean you job when it is done.
+```
+kubectl delete job <pod-name>
+```
+
