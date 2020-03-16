@@ -31,7 +31,7 @@ Use the "Job". For Job **Please never use args: ["sleep", "infinity"]**. This co
 ```
 kubectl apply -f job.yaml
 ```
-You **must manually clean you job when it is done(Completed)*.
+You can manually clean you job when it is done(Completed). OR job will be cleaned after a default set of 7 days.
 ```
 kubectl delete job ${JOB_NAME}
 ```
