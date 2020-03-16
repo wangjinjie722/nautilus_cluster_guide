@@ -1,5 +1,5 @@
 # nautilus cluster guide
-This is some sample usage of the nautilus. You may also refer to the (Official Documents)[https://gitlab.com/ucsd-prp/ucsd-prp.gitlab.io/-/tree/master/_userdocs]
+This are some sample usages of the nautilus. You may also refer to the (Official Documents)[https://gitlab.com/ucsd-prp/ucsd-prp.gitlab.io/-/tree/master/_userdocs]
 
 # Get started
 In general, we have two steps to start to use our cluster
