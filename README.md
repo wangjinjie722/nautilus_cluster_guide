@@ -14,11 +14,13 @@ There are generally three types of pods under our situation.
 So you can choose one of them based on your type of task.
 
 ## How to get the permanent storage:
-This is sample to apply for storage. However there are several other situation. Please do not apply more than 1T storage. Official documents https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+There are multiple types of storage described in our documentation, and there's no one-fit-all solution.
+This is sample to apply for storage. It's perfectly fine to request more than 1TB of storage if needed, and clean it up after. 
 ```bash
 kubectl apply -f storage.yaml
 ```
-## How to get an interactive shell:
+(Official usage)[https://gitlab.com/ucsd-prp/ucsd-prp.gitlab.io/-/tree/master/_userdocs%2Fstorage]
+## How to run a pods:
 Use the "Pod". For pods we can use **args: ["sleep", "infinity"]**, since it will be automaticly deleted after 6 hours.
 Pods can maximally exist for 6 hours. For long time use, you should create a job.
 Create "Pod"
@@ -74,5 +76,5 @@ For me there are two ways to transfer file to the cluster
 ```
 kubectl cp ${LOCAL-DIR} ${NAMESPACE-NAME}/${POD_NAME}:${REMOTE-DIR}
 ```
-1. Git(suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency if collaboration is needed.
+1. Git (suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency if collaboration is needed.
 
