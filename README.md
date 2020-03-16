@@ -1,11 +1,15 @@
 # nautilus cluster guide
+This is some sample usage of the nautilus. You may also refer to the (Official Documents)[https://gitlab.com/ucsd-prp/ucsd-prp.gitlab.io/-/tree/master/_userdocs]
+
+# Get started
 In general, we have two steps to start to use our cluster
 1. *(New user only)* Apply for storage to store our files and data
 2. create a pods and run your programe. A Kubernetes pod is a group of containers that are deployed together on the same host. If you frequently deploy single containers, you can generally replace the word "pod" with "container" and accurately understand the concept.
 
-There are generally two types of pods under our situation. 
+There are generally three types of pods under our situation. 
 1. An independent pods is limited to exit for 6 hours
 2. Pods controlled by jobs. A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up the Pods it created.
+3. Pods controlled by deployment. In case you need to have an idle pod in the cluster, that might ocassionally do some computations, you have to run it as a Deployment. Deployments in Nautilus are limited to 2 weeks (unless the namespace is added to exceptions list and runs a permanent service). This ensures your pod will not run in the cluster forever when you don't need it and move on to other projects. **Such a deployment can not request a GPU.**
 
 So you can choose one of them based on your type of task.
 
@@ -71,3 +75,4 @@ For me there are two ways to transfer file to the cluster
 kubectl cp ${LOCAL-DIR} ${NAMESPACE-NAME}/${POD_NAME}:${REMOTE-DIR}
 ```
 1. Git(suggested for code transfer). You can git push your code on the repo and pull them on the cluster. This method can additionally maintain history of your code, and increase efficiency if collaboration is needed.
+
