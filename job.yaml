@@ -1,9 +1,10 @@
 apiVersion: batch/v1
 kind: Job # Deployment will automatically restart when killed. Use Pod if not needed
 metadata:
+  name: kaiwang-tvqa
   labels:
     k8s-app: research
-  generateName: xyang-siamese-job
+  generateName: kaiwang-tvqa-job
   namespace: ecepxie
 spec:
   template:
@@ -16,7 +17,7 @@ spec:
       - name: research
         image: gitlab-registry.nautilus.optiputer.net/vamsirk/research-containers
         imagePullPolicy: Always
-        workingDir: /xyang-volume/text-to-image/text-to-image
+        workingDir: /kaiwang-volume/TVQA
         command: ["bash","train.sh"]
         resources:
           requests:
@@ -29,11 +30,11 @@ spec:
             nvidia.com/gpu: 2
         volumeMounts:
         - mountPath: /ceph
-          name: xyang-volume
+          name: kaiwang-volume
       volumes:
-        - name: xyang-volume
+        - name: kaiwang-volume
           persistentVolumeClaim:
-            claimName: xyang-volume
+            claimName: kaiwang-volume
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

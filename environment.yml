@@ -1,4 +1,4 @@
-name: yxy
+name: kw
 channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2
   - pytorch
@@ -16,7 +16,7 @@ channels:
   - defaults
 dependencies:
   - cudatoolkit
-  - pytorch=1.3.0
+  - pytorch=0.4.0
   - torchvision
   - pydicom
   - tensorboard=1.14.0
